@@ -118,3 +118,11 @@ Chaque fond déclare `theme: "light"` ou `"dark"`. Sombre, Fiord et Satellite ut
 Les tuiles Relief sont disponibles jusqu’au zoom natif 13 et Satellite jusqu’au zoom natif 23 ; `options.maxNativeZoom` permet de les agrandir aux zooms supérieurs autorisés par la carte. Les données, filtres, contours et options propres à la carte sont conservés.
 
 Le menu burger ferme au clic extérieur et avec Échap, sans réinitialiser les filtres. Son attribut `hidden`, son état ouvert et `aria-expanded` sont synchronisés.
+
+## Test de navigation vers les événements proches
+
+En mode marqueurs, à partir du zoom 11, un bouton fléché apparaît lorsqu'il reste au plus un groupe ou événement visible et qu'une autre cible est hors écran ou cachée par un panneau. Il montre l'icône de l'événement voisin ou le nombre de cas du groupe, avec sa distance dans l'infobulle. Les cibles suivent les filtres et la période de lecture actifs. Le clic suspend la lecture et déplace la vue vers cette cible, dans une zone dégagée, en conservant le zoom final.
+
+Sur ordinateur, le bouton se place sur le pourtour avec une marge de 56 px et évite les commandes et panneaux. Sur mobile, il reste au bas de la zone de carte disponible, au-dessus du panneau titre, avec une marge de 20 px. La flèche garde la direction de la cible si un obstacle décale le bouton. Le bouton suit le thème clair/sombre et se masque pendant le déplacement, en choroplèthe, sous les fenêtres et lorsqu'un panneau mobile ou l'encombrement ne laisse pas assez de place.
+
+Les paramètres sont dans `fonctionnalites.navigationProche` de `JS/reglages.js` : `enabled`, `zoomMinimum`, `maximumVisibles`, `margeDesktop`, `margeMobile`, `espacementComposants`, `seuilMobile` et `dureeDeplacement` (secondes). `enabled: false` désactive ce test. Le comportement reste limité à cette carte pour validation.

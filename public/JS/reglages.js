@@ -46,6 +46,7 @@ export const REGLAGES = {
       occupationLegend: "./ui/occupationLegend.js",
       menu: "./ui/menu.js",
       mapRendering: "./maps/rendering.js",
+      nearbyNavigation: "./maps/nearbyNavigation.js",
       geojsonLevels: "./maps/geojsonLevels.js"
     }
   },
@@ -309,6 +310,16 @@ export const REGLAGES = {
     statutsRegions: { enabled: true },
     filtresAdditionnels: { enabled: true },
     occupationLayer: { enabled: false },
+    navigationProche: {
+      enabled: true, // Test de navigation vers le groupe ou événement hors écran le plus proche.
+      zoomMinimum: 11,
+      maximumVisibles: 1, // Afficher le bouton lorsqu'il reste 0 ou 1 groupe/événement visible.
+      margeDesktop: 56, // Marges du bouton au bord de la zone libre, en pixels.
+      margeMobile: 20,
+      espacementComposants: 12,
+      seuilMobile: 768,
+      dureeDeplacement: 0.65 // Secondes ; le zoom final reste inchangé.
+    },
     choropleth: {
       enabled: true, // Conserve le bouton du choroplèthe dans le menu.
       // false : démarrer en mode marqueurs ; true : démarrer en choroplèthe.
@@ -449,6 +460,7 @@ export const REGLAGES = {
         menuAuthors: "Auteurs",
         menuTimeline: "Chronologie",
         menuOpen: "Ouvrir le menu",
+        navigationProche: { evenement: "Rejoindre l’événement le plus proche", groupe: "Rejoindre le groupe le plus proche ({count} événements)" },
         rsfCartography: "RSF cartographie",
         bottomChartTitle: "Évolution par type de violence",
         oblastsBtn: "Zones",
@@ -512,6 +524,7 @@ export const REGLAGES = {
         menuAuthors: "Authors",
         menuTimeline: "Timeline",
         menuOpen: "Open menu",
+        navigationProche: { evenement: "Go to the nearest event", groupe: "Go to the nearest group ({count} events)" },
         rsfCartography: "RSF cartography",
         bottomChartTitle: "Evolution by type of violence",
         oblastsBtn: "Areas",

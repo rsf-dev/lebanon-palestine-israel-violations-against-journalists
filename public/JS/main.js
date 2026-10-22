@@ -44,7 +44,8 @@ const [
   occupationLegend,
   panelScroll,
   geojsonLevels,
-  mapRendering
+  mapRendering,
+  nearbyNavigation
 ] = await Promise.all([
   importV(MODULES.dates),
   importV(MODULES.strings),
@@ -60,7 +61,8 @@ const [
   importV(MODULES.occupationLegend),
   importV(MODULES.panelScroll),
   importV(MODULES.geojsonLevels),
-  importV(MODULES.mapRendering)
+  importV(MODULES.mapRendering),
+  importV(MODULES.nearbyNavigation)
 ]);
 
 
@@ -90,6 +92,7 @@ const { createTutorial } = tutorial;
 const { createOccupationLayerController } = occupationLayer;
 const { createOccupationLegend } = occupationLegend;
 const { createGeojsonLevelsController } = geojsonLevels;
+const { createNearbyNavigator } = nearbyNavigation;
 const { createBasemapLayer, createGeojsonRenderer, waitForBasemapReady, applyBasemapTheme, createBasemapControl, validateBasemaps } = mapRendering;
 const { initPanelScrollProgress } = panelScroll;
 
@@ -154,6 +157,7 @@ const AUTHOR_MAP_TO_CANONICAL = REGLAGES.auteurs.aliases || {};
 /// === ÉTAT GLOBAL ===
 
 let map;
+let nearbyNavigator = null;
 let activeBasemap = null;
 let geojsonRenderer = null;
 let geojsonLevelsController = null;
@@ -2337,6 +2341,7 @@ function afficherEvenements({ renderGeography = true } = {}) {
   }
 
   syncTitleFilterControls();
+  nearbyNavigator?.refresh();
 }
 
 function formatOccupationDate(iso) {
@@ -2691,6 +2696,18 @@ async function initMap() {
   }
 
   EventsRenderer.init({ leafletMap: map });
+
+  if (featureEnabled("navigationProche")) {
+    nearbyNavigator = createNearbyNavigator({
+      L, map,
+      settings: FEATURES.navigationProche,
+      getClusterGroup: () => EventsRenderer.getClusterGroup(),
+      isEnabled: () => !regionsModeActive,
+      getLang: () => currentLang,
+      getStrings: () => getUiStrings(currentLang).navigationProche || {},
+      onNavigate: () => Playback.pause()
+    });
+  }
 
   OblastFilters.init({
     map,

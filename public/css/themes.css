@@ -135,6 +135,39 @@
 
 #rsf-map-app.theme-dark #map-title-toggle img { filter: brightness(0) invert(1); }
 
+/* Un support clair conserve les couleurs et les traits noirs des pictogrammes. */
+#rsf-map-app.theme-dark :is(.marker-icon, img.leaflet-marker-icon, .header-legend-icon, .event-icon,
+  #right-panel-legend img, #bottom-chart-legend img) {
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #fff, 0 1px 5px rgba(0, 0, 0, 0.65);
+}
+
+#rsf-map-app.theme-dark .marker-icon {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 0 2px #fff, 0 1px 6px rgba(0, 0, 0, 0.8);
+}
+
+#rsf-map-app.theme-dark :is(.header-legend-icon, .event-icon, #right-panel-legend img, #bottom-chart-legend img) {
+  object-fit: contain;
+  padding: 1px;
+  box-sizing: border-box;
+}
+
+#rsf-map-app.theme-dark .header-legend-icon {
+  width: 18px;
+  height: 18px;
+}
+
+#rsf-map-app.theme-dark :is(.custom-cluster, .custom-cluster span) { color: #fff; }
+#rsf-map-app.theme-dark .custom-cluster {
+  border-color: #f5f5f7;
+  box-shadow: 0 0 0 1px #f5f5f7, 0 2px 7px rgba(0, 0, 0, 0.7);
+}
+#rsf-map-app.theme-dark .leaflet-control-layers-toggle { filter: brightness(0) invert(1); }
+
 /* Le bouton, l'état ouvert et l'attribut hidden restent synchronisés. */
 #rsf-map-app #utility-menu #utility-menu-toggle {
   background: var(--rsf-control);

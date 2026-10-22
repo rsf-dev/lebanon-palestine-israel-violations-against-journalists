@@ -40,6 +40,13 @@ let zoomButtonTargetYear = null;
 let zoomButtonLang = "fr";
 
 
+
+function chartTheme() {
+  return document.body.classList.contains("theme-dark")
+    ? { background: "#101014", text: "#d9dbe2", strongText: "#f5f5f7", grid: "rgba(255,255,255,0.18)" }
+    : { background: "#fff", text: "#666", strongText: "#16161b", grid: "rgba(0,0,0,0.14)" };
+}
+
 function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
 
 function getTimelineBucketUnit(level = timelineZoomLevel) {
@@ -923,7 +930,7 @@ function drawLineChart({ canvas, days, seriesByType, cursorTs, maxY, typeColors,
   if (!days.length || types.length === 0) {
     const labels = getUiStrings(currentLang).chartFilterLabels || {};
     ctx.font = "14px Electrolize, sans-serif";
-    ctx.fillStyle = "#000";
+    ctx.fillStyle = chartTheme().strongText;
     ctx.fillText(labels.noData || (currentLang === "en" ? "No data" : "Aucune donnée"), padL, padT + 18);
     hoverModel = null;
     return;
@@ -937,8 +944,8 @@ function drawLineChart({ canvas, days, seriesByType, cursorTs, maxY, typeColors,
   ctx.lineTo(padL + plotW, padT + plotH);
   ctx.stroke();
 
-  ctx.strokeStyle = "rgba(0,0,0,0.08)";
-  ctx.fillStyle = "#666";
+  ctx.strokeStyle = chartTheme().grid;
+  ctx.fillStyle = chartTheme().text;
   ctx.font = "11px Electrolize, sans-serif";
   for (let i = 0; i <= 4; i++) {
     const yVal = Math.round((maxY * i) / 4);
@@ -1006,7 +1013,7 @@ function drawLineChart({ canvas, days, seriesByType, cursorTs, maxY, typeColors,
     }
   }
 
-  ctx.fillStyle = "#666";
+  ctx.fillStyle = chartTheme().text;
   ctx.font = "11px Electrolize, sans-serif";
   const idxs = [0, Math.floor((days.length - 1) / 2), days.length - 1]
     .filter((v, i, a) => a.indexOf(v) === i);
@@ -1090,7 +1097,7 @@ function drawLineChart({ canvas, days, seriesByType, cursorTs, maxY, typeColors,
 function drawTimelineWindowBackground(ctx, { buckets, padL, padT, plotW, plotH, windowStartTs, cursorTs, startOfDayUTC }) {
   if (!buckets?.length) return;
 
-  ctx.fillStyle = "rgba(255,255,255,0.96)";
+  ctx.fillStyle = chartTheme().background;
   ctx.fillRect(padL, padT, plotW, plotH);
 
   const { startTs: domainStartTs, endTs: domainEndTs } = getTimelineDomain(buckets);
@@ -1200,8 +1207,8 @@ function drawTimelineYearTicks(ctx, { padL, padT, plotW, plotH, domainStartTs, d
 
   ctx.save();
   ctx.font = "10px Electrolize, sans-serif";
-  ctx.fillStyle = "#666";
-  ctx.strokeStyle = "rgba(0,0,0,0.14)";
+  ctx.fillStyle = chartTheme().text;
+  ctx.strokeStyle = chartTheme().grid;
   ctx.lineWidth = 1;
   ctx.textBaseline = "top";
   ctx.textAlign = "center";
@@ -1267,7 +1274,7 @@ function drawStackedColumnChart({ canvas, days, seriesByType, cursorTs, windowSt
   if (!visibleBuckets.length || types.length === 0) {
     const labels = getUiStrings(currentLang).chartFilterLabels || {};
     ctx.font = "12px Electrolize, sans-serif";
-    ctx.fillStyle = "#000";
+    ctx.fillStyle = chartTheme().strongText;
     ctx.fillText(labels.noData || (currentLang === "en" ? "No data" : "Aucune donnee"), padL, padT + 16);
     hoverModel = null;
     return;
@@ -1287,8 +1294,8 @@ function drawStackedColumnChart({ canvas, days, seriesByType, cursorTs, windowSt
     startOfDayUTC
   });
 
-  ctx.strokeStyle = "rgba(0,0,0,0.08)";
-  ctx.fillStyle = "#666";
+  ctx.strokeStyle = chartTheme().grid;
+  ctx.fillStyle = chartTheme().text;
   ctx.font = "10px Electrolize, sans-serif";
   for (let i = 0; i <= 2; i++) {
     const yVal = Math.round((maxY * i) / 2);

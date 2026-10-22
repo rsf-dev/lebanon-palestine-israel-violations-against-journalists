@@ -26,6 +26,7 @@ async function importV(path) {
 
 const { REGLAGES, validerReglages } = await importV("./reglages.js");
 validerReglages(REGLAGES);
+const { initUtilityMenu } = await importV(REGLAGES.fichiers.modules.menu);
 const MODULES = REGLAGES.fichiers.modules;
 
 const [
@@ -89,7 +90,7 @@ const { createTutorial } = tutorial;
 const { createOccupationLayerController } = occupationLayer;
 const { createOccupationLegend } = occupationLegend;
 const { createGeojsonLevelsController } = geojsonLevels;
-const { createBasemapLayer, createGeojsonRenderer, waitForBasemapReady } = mapRendering;
+const { createBasemapLayer, createGeojsonRenderer, waitForBasemapReady, applyBasemapTheme, createBasemapControl, validateBasemaps } = mapRendering;
 const { initPanelScrollProgress } = panelScroll;
 
 
@@ -2221,9 +2222,6 @@ function initHarmonizedShell() {
   const calendarStart = document.getElementById("title-calendar-start");
   const calendarEnd = document.getElementById("title-calendar-end");
   const clearBtn = document.getElementById("title-clear-filters");
-  const utilityMenu = document.getElementById("utility-menu");
-  const utilityToggle = document.getElementById("utility-menu-toggle");
-  const utilityPanel = document.getElementById("utility-menu-panel");
 
   const toggleTitle = () => {
     if (!titlePanel || !titleToggle) return;
@@ -2263,11 +2261,6 @@ function initHarmonizedShell() {
   calendarEnd?.addEventListener("change", applyTitleCalendarInputs);
   clearBtn?.addEventListener("click", () => clearTitleFilters({ resetZoom: false }));
 
-  utilityToggle?.addEventListener("click", () => {
-    const isOpen = utilityMenu?.classList.toggle("open");
-    if (utilityPanel) utilityPanel.hidden = !isOpen;
-    utilityToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-  });
 
   document.getElementById("utility-events-toggle")?.addEventListener("click", () => setPanelExpanded("toggle"));
   document.getElementById("utility-regions-mode-toggle")?.addEventListener("click", () => setRegionsMode(!regionsModeActive));
@@ -2618,21 +2611,15 @@ function showLoadingError(error) {
   if (retry) retry.hidden = false;
 }
 
-function setTheme(mode) {
-  document.body.classList.toggle("theme-dark", mode === "dark");
-  document.body.classList.toggle("theme-light", mode === "light");
+function setTheme(fond) {
+  applyBasemapTheme(fond);
+  if (allEvents.length) updateBottomChart(true);
 }
 
 function refreshBasemapControl() {
+  if (basemapControl) { map.removeControl(basemapControl); basemapControl = null; }
   if (!map || basemapEntries.length < 2) return;
-  if (basemapControl) map.removeControl(basemapControl);
-
-  const labelledLayers = {};
-  for (const { config, layer } of basemapEntries) {
-    const label = config.labels?.[currentLang] || config.labels?.[DEFAULT_LANGUAGE] || config.id;
-    labelledLayers[label] = layer;
-  }
-  basemapControl = L.control.layers(labelledLayers, null, { position: "bottomright" }).addTo(map);
+  basemapControl = createBasemapControl({ L, map, entries: basemapEntries, lang: currentLang });
 }
 
 async function zoomToOblast(oblastName) {
@@ -2661,6 +2648,8 @@ async function zoomToOblast(oblastName) {
 /// === INIT MAP ===
 
 async function initMap() {
+  const initialBasemap = validateBasemaps(MAP_SETTINGS.fonds);
+  setTheme(initialBasemap);
   setLoadingProgress(10);
   applyStaticTextsForLang(currentLang);
 
@@ -2775,12 +2764,12 @@ async function initMap() {
     layer.on("add", () => {
       activeBasemap = layer;
       geojsonRenderer.refresh();
-      setTheme(basemap.theme || "light");
+      setTheme(basemap);
     });
     layer.on("remove", () => {
       if (activeBasemap === layer) {
         activeBasemap = null;
-        geojsonRenderer.refresh();
+        queueMicrotask(() => { if (!activeBasemap) geojsonRenderer.refresh(); });
       }
     });
     fonds[label] = layer;
@@ -2788,7 +2777,6 @@ async function initMap() {
     if (basemap.actifParDefaut || !defaultBasemap) defaultBasemap = layer;
   }
 
-  setTheme(MAP_SETTINGS.themeInitial === "sombre" ? "dark" : "light");
   defaultBasemap?.addTo(map);
   if (Object.keys(fonds).length > 1) refreshBasemapControl();
 
@@ -2881,6 +2869,7 @@ function onDomReady(fn) {
 
 let appBooted = false;
 onDomReady(() => {
+  initUtilityMenu();
   if (appBooted) return;
   appBooted = true;
   applyInterfaceSettings();

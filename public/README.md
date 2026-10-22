@@ -96,7 +96,7 @@ occupationLayer: { enabled: false },
 choropleth: { enabled: true, actifParDefaut: false }
 ```
 
-`fonctionnalites.choropleth.actifParDefaut` choisit le mode à l'arrivée et après une réinitialisation : `false` pour les marqueurs, `true` pour le choroplèthe. `enabled: true` conserve la commande dans le menu ; `enabled: false` désactive complètement cette fonctionnalité. Les panneaux restent blancs, quel que soit le fond de carte choisi.
+`fonctionnalites.choropleth.actifParDefaut` choisit le mode à l'arrivée et après une réinitialisation : `false` pour les marqueurs, `true` pour le choroplèthe. `enabled: true` conserve la commande dans le menu ; `enabled: false` désactive complètement cette fonctionnalité. Les panneaux suivent le thème du fond choisi.
 
 Pour activer la couche d'occupation, passez son option à `true`, ajoutez les fichiers GeoJSON datés dans `REGLAGES.occupation.fichiers`, configurez les types et leurs textes `occupationLegend` en français et en anglais. Le fichier de géométrie des zones et le champ de liaison doivent continuer à correspondre.
 
@@ -107,3 +107,14 @@ Dans `REGLAGES.categories`, chaque entrée définit une `cle` interne, un `slug`
 ## Vérifier et publier
 
 Servez le dossier par HTTP en local et vérifiez les descriptions FR/EN, filtres de zone et d'emplacement, statistiques, auteurs, choroplèthe, liste des cas, dates et lecture chronologique. Vérifiez également chaque GeoJSON après toute modification de ses noms de propriétés. Lorsqu'un fichier JS ou CSS change, mettez à jour son paramètre `v` dans `index.html`, puis déployez ensemble les données, géométries, icônes et assets référencés.
+
+
+## Fonds de carte et thèmes
+
+Les sept fonds sont disponibles dans `carte.fonds` : Clair, Sombre, Fiord, Liberty, Bright, Satellite et Relief. Une seule entrée doit avoir `actifParDefaut: true`. Le fond initial propre à cette carte est conservé.
+
+Chaque fond déclare `theme: "light"` ou `"dark"`. Sombre, Fiord et Satellite utilisent des panneaux noirs avec texte clair ; les autres fonds utilisent des panneaux blancs avec texte sombre. Les noms du fournisseur ne sont pas des valeurs de thème. `css/themes.css` regroupe les palettes des panneaux, formulaires, légendes, menus et contrôles. La chronologie redessine aussi ses axes et son fond au changement de thème.
+
+Les tuiles Relief sont disponibles jusqu’au zoom natif 13 et Satellite jusqu’au zoom natif 23 ; `options.maxNativeZoom` permet de les agrandir aux zooms supérieurs autorisés par la carte. Les données, filtres, contours et options propres à la carte sont conservés.
+
+Le menu burger ferme au clic extérieur et avec Échap, sans réinitialiser les filtres. Son attribut `hidden`, son état ouvert et `aria-expanded` sont synchronisés.

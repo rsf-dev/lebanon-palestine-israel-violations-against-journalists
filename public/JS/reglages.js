@@ -263,6 +263,12 @@ export const REGLAGES = {
   },
 
   zones: {
+    labels: {
+      "Bande de Gaza": { fr: "Bande de Gaza", en: "Gaza Strip" },
+      "Cisjordanie": { fr: "Cisjordanie", en: "West Bank" },
+      "Israel": { fr: "Israël", en: "Israel" },
+      "Liban": { fr: "Liban", en: "Lebanon" }
+    },
     aliases: {
       "Gaza": "Bande de Gaza",
       "Bande de Gaza": "Bande de Gaza",
@@ -285,6 +291,14 @@ export const REGLAGES = {
   },
 
   auteurs: {
+    labels: {
+      "Armée israélienne": { fr: "Armée israélienne", en: "Israeli army" },
+      "Autorité palestinienne": { fr: "Autorité palestinienne", en: "Palestinian Authority" },
+      "Autorités libanaises": { fr: "Autorités libanaises", en: "Lebanese authorities" },
+      "Inconnu": { fr: "Inconnu", en: "Unknown" },
+      "Hezbollah": { fr: "Hezbollah", en: "Hezbollah" },
+      "Hamas": { fr: "Hamas", en: "Hamas" }
+    },
     aliases: {
       "Armée Israélienne": "Armée israélienne",
       "Armée Israéelienne": "Armée israélienne",

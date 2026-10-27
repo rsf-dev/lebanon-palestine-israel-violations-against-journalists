@@ -1,6 +1,7 @@
 // JS/tutorial/tutorial.js
 export function createTutorial({
   getState,
+  getEventOblast,
   setPanelExpanded,
   setRightPanelExpanded,
   updateOblastPanel,
@@ -207,7 +208,7 @@ export function createTutorial({
 
       const ev0 = allEvents?.[0];
       if (ev0) {
-        updateOblastPanel?.(ev0.region || ev0.Region || ev0.oblast || ev0.Oblast || null);
+        updateOblastPanel?.(getEventOblast?.(ev0) || ev0.region || ev0.Region || ev0.oblast || ev0.Oblast || null);
         highlightOblastForEvent?.(ev0);
       }
     }

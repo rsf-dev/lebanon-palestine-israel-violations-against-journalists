@@ -7,7 +7,7 @@ export let TYPE_LABELS = { fr: {} };
 export function configureI18n({ textes, categories } = {}) {
   if (textes && typeof textes === "object") UI_STRINGS = textes;
 
-  const labels = {};
+  const labels = Object.create(null);
   for (const categorie of categories || []) {
     if (categorie?.enabled === false || !categorie?.cle) continue;
     for (const [lang, label] of Object.entries(categorie.labels || {})) {
@@ -20,7 +20,7 @@ export function configureI18n({ textes, categories } = {}) {
 
 export function getDisplayLabelForType(type, lang) {
   const dict = TYPE_LABELS[lang] || TYPE_LABELS.fr || {};
-  return dict[type] || type;
+  return Object.prototype.hasOwnProperty.call(dict, type) ? dict[type] : type;
 }
 
 export function getUiStrings(lang) {

@@ -24,6 +24,7 @@ async function importV(path) {
   return mod;
 }
 
+const { fetchResponse: fetch, validateEvents, parseCoordinate } = await importV("./utils/data.js");
 const { REGLAGES, validerReglages } = await importV("./reglages.js");
 validerReglages(REGLAGES);
 const { initUtilityMenu } = await importV(REGLAGES.fichiers.modules.menu);
@@ -76,7 +77,7 @@ const {
 } = dates;
 
 const { normalizeType } = strings;
-const { escapeHtml } = security;
+const { escapeHtml, getSafeHttpUrl } = security;
 
 const { BottomChart } = bottomChart;
 const { EventsRenderer } = eventsRenderer;
@@ -137,21 +138,21 @@ const OCCUPATION_MAX_TIMES = OCCUPATION_FILES.map(x => isoToUTCms(x.date));
 
 
 const OCCUPATION_TYPES = REGLAGES.occupation.types || {};
-const TYPE_COLORS = Object.fromEntries(ENABLED_CATEGORIES.map(categorie => [categorie.cle, categorie.couleur]));
-const TYPE_CONFIG = Object.fromEntries(ENABLED_CATEGORIES.map(categorie => [categorie.cle, { slug: categorie.slug, file: categorie.icone }]));
-const TYPE_MAP_TO_CANONICAL = Object.fromEntries(
+const TYPE_COLORS = Object.assign(Object.create(null), Object.fromEntries(ENABLED_CATEGORIES.map(categorie => [categorie.cle, categorie.couleur])));
+const TYPE_CONFIG = Object.assign(Object.create(null), Object.fromEntries(ENABLED_CATEGORIES.map(categorie => [categorie.cle, { slug: categorie.slug, file: categorie.icone }])));
+const TYPE_MAP_TO_CANONICAL = Object.assign(Object.create(null), Object.fromEntries(
   ENABLED_CATEGORIES.flatMap(categorie => [
     categorie.cle,
     ...Object.values(categorie.labels || {}),
     ...(categorie.valeursEntree || [])
   ].filter(Boolean).map(value => [String(value), categorie.cle]))
-);
-const TYPE_MAP_TO_CANONICAL_NORMALIZED = Object.fromEntries(
+));
+const TYPE_MAP_TO_CANONICAL_NORMALIZED = Object.assign(Object.create(null), Object.fromEntries(
   Object.entries(TYPE_MAP_TO_CANONICAL).map(([value, key]) => [normalizePlainText(value), key])
-);
-const REGION_MAP_TO_SHAPES = REGLAGES.zones.aliases || {};
-const REGION_BASE_COLORS = REGLAGES.zones.couleursBase || {};
-const AUTHOR_MAP_TO_CANONICAL = REGLAGES.auteurs.aliases || {};
+));
+const REGION_MAP_TO_SHAPES = Object.assign(Object.create(null), REGLAGES.zones.aliases || {});
+const REGION_BASE_COLORS = Object.assign(Object.create(null), REGLAGES.zones.couleursBase || {});
+const AUTHOR_MAP_TO_CANONICAL = Object.assign(Object.create(null), REGLAGES.auteurs.aliases || {});
 
 
 /// === ÉTAT GLOBAL ===
@@ -223,14 +224,15 @@ function setupCollapse({ btnId, bodyId, storageKey = null, defaultCollapsed = fa
 
   const load = () => {
     if (!storageKey) return defaultCollapsed;
-    const v = localStorage.getItem(storageKey);
-    if (v === null) return defaultCollapsed;
-    return v === "1";
+    try {
+      const v = localStorage.getItem(storageKey);
+      return v === null ? defaultCollapsed : v === "1";
+    } catch { return defaultCollapsed; }
   };
 
   const save = (isCollapsed) => {
     if (!storageKey) return;
-    localStorage.setItem(storageKey, isCollapsed ? "1" : "0");
+    try { localStorage.setItem(storageKey, isCollapsed ? "1" : "0"); } catch { /* Stockage désactivé dans certains contextes intégrés. */ }
   };
 
   const apply = (isCollapsed) => {
@@ -250,6 +252,7 @@ function setupCollapse({ btnId, bodyId, storageKey = null, defaultCollapsed = fa
     apply(collapsed);
   });
 }
+
 
 
 function getTypeSlugFromCategory(category) {
@@ -287,18 +290,24 @@ function normalizeEventType(raw) {
 }
 
 function getEventOblast(ev) {
-  return normalizeRegionName(getFirstConfiguredValue(ev, DATA_FIELDS.zone));
+  const region = normalizeRegionName(getFirstConfiguredValue(ev, DATA_FIELDS.zone));
+  return REGLAGES.zones.labels?.[region]?.[currentLang] || region;
 }
 
 function getEventGeojsonName(ev) {
-  return normalizeRegionName(getFirstConfiguredValue(ev, DATA_FIELDS.nomGeojson) || getEventOblast(ev));
+  return normalizeRegionName(getFirstConfiguredValue(ev, DATA_FIELDS.nomGeojson) ||
+    getFirstConfiguredValue(ev, DATA_FIELDS.zone));
+}
+
+function normalizeAuthorName(raw) {
+  const value = String(raw || "").trim();
+  if (!value) return null;
+  return AUTHOR_MAP_TO_CANONICAL[value] || value;
 }
 
 function getEventAuthor(ev) {
-  const author = getFirstConfiguredValue(ev, DATA_FIELDS.auteur) || "";
-  const value = author.toString().trim();
-  if (!value) return null;
-  return AUTHOR_MAP_TO_CANONICAL[value] || value;
+  const author = normalizeAuthorName(getFirstConfiguredValue(ev, DATA_FIELDS.auteur));
+  return REGLAGES.auteurs.labels?.[author]?.[currentLang] || author;
 }
 
 function getEventMedia(ev) {
@@ -590,8 +599,11 @@ function createMarkerIcon(type) {
   const cfg = TYPE_CONFIG[type];
   if (!cfg) return L.icon({ iconUrl: DEFAULT_ICON_URL, iconSize: [24, 24] });
 
+  const element = document.createElement("div");
+  element.className = "marker-icon marker-" + normalizeType(cfg.slug);
+  element.style.backgroundImage = "url(" + JSON.stringify(iconUrl(cfg.file)) + ")";
   return L.divIcon({
-    html: `<div class="marker-icon marker-${cfg.slug}" style="background-image:url('${iconUrl(cfg.file)}')"></div>`,
+    html: element,
     className: "",
     iconSize: [36, 36],
     popupAnchor: [0, -12]
@@ -994,7 +1006,7 @@ function getFeatureShapeName(feature) {
 function getOblastDisplayNameForShape(shapeName) {
   if (!shapeName) return null;
   const ev0 = (allEvents || []).find(ev => getEventGeojsonName(ev) === shapeName);
-  return ev0 ? getEventOblast(ev0) : shapeName;
+  return ev0 ? getEventOblast(ev0) : REGLAGES.zones.labels?.[shapeName]?.[currentLang] || shapeName;
 }
 
 function getRegionCountLabel(count) {
@@ -1266,7 +1278,7 @@ function buildStackedCountsByGroup({ groupBy, onlyOblast = null, startTime = nul
     return getEventOblast(ev) || null;
   };
 
-  const counts = {};
+  const counts = Object.create(null);
   for (const ev of allEvents) {
     if (!eventMatchesSupplementFilters(ev)) continue;
     if (onlyOblast && getEventOblast(ev) !== onlyOblast) continue;
@@ -1285,7 +1297,7 @@ function buildStackedCountsByGroup({ groupBy, onlyOblast = null, startTime = nul
     if (!rightPanelVisibleTypes.has(type)) continue;
 
     if (!counts[g]) {
-      counts[g] = {};
+      counts[g] = Object.create(null);
       for (const cat of allCats) counts[g][cat] = 0;
     }
     counts[g][type] += 1;
@@ -1755,7 +1767,9 @@ function buildRelatedMaps() {
   for (const relatedMap of REGLAGES.cartesLiees || []) {
     const link = document.createElement("a");
     link.className = "rsf-cartography-link";
-    link.href = relatedMap.href;
+    const safeHref = getSafeHttpUrl(relatedMap.href);
+    if (safeHref) link.href = safeHref;
+    else { link.removeAttribute("href"); link.hidden = true; }
     link.target = "_blank";
     link.rel = "noopener noreferrer";
 
@@ -2476,6 +2490,7 @@ const Playback = createPlayback({
 
 const Tutorial = createTutorial({
   getState: () => ({ currentLang, allEvents }),
+  getEventOblast,
   setPanelExpanded,
   setRightPanelExpanded,
   updateOblastPanel,
@@ -2499,7 +2514,7 @@ async function loadEventsForLang(lang) {
   const resp = await fetch(withV(base));
   if (!resp.ok) throw new Error(`Erreur de chargement ${base} : ${resp.status}`);
 
-  const data = await resp.json();
+  const data = validateEvents(await resp.json(), REGLAGES.champsDonnees);
 
   data.forEach((ev, index) => {
     ev.date = getFirstConfiguredValue(ev, DATA_FIELDS.date) || "";
@@ -2510,7 +2525,7 @@ async function loadEventsForLang(lang) {
     ev.type_violence_original = rawType;
     ev.type_violence = normalizeEventType(rawType);
     ev.compteur_evenements = getFirstConfiguredValue(ev, DATA_FIELDS.identifiant) || index + 1;
-    ev.auteur = getEventAuthor(ev) || "";
+    ev.auteur = normalizeAuthorName(getFirstConfiguredValue(ev, DATA_FIELDS.auteur)) || "";
     ev.media = getEventMedia(ev) || "";
     ev.statut_evenement = getEventStatus(ev) || "";
     ev.allegations_torture = hasTortureAllegation(ev);
@@ -2518,10 +2533,10 @@ async function loadEventsForLang(lang) {
 
     const lat = getFirstConfiguredValue(ev, DATA_FIELDS.latitude);
     const lng = getFirstConfiguredValue(ev, DATA_FIELDS.longitude);
-    if (lat !== undefined) ev.lat = Number(lat);
-    if (lng !== undefined) ev.lng = Number(lng);
+    ev.lat = parseCoordinate(lat, 90);
+    ev.lng = parseCoordinate(lng, 180);
 
-    const region = getEventOblast(ev);
+    const region = normalizeRegionName(getFirstConfiguredValue(ev, DATA_FIELDS.zone));
     if (region) {
       ev.Oblast = region;
       ev.Region = region;
@@ -2538,15 +2553,22 @@ async function loadEventsForLang(lang) {
 
 /// === LANGUE ===
 
+let languageChangeSequence = 0;
 async function setLanguage(lang) {
+  const sequence = ++languageChangeSequence;
   if (!(REGLAGES.projet.langues || []).includes(lang)) return;
   if (lang === currentLang) return;
 
+  Playback.pause();
+  let nextEvents;
+  try { nextEvents = await loadEventsForLang(lang); }
+  catch (error) { console.error("Changement de langue impossible", error); return; }
+  if (sequence !== languageChangeSequence) return;
   Playback.stop(true);
 
   currentLang = lang;
   geojsonLevelsController?.setLanguage(currentLang);
-  allEvents = await loadEventsForLang(lang);
+  allEvents = nextEvents;
   refreshBasemapControl();
   OccupationLegend?.update();
 
@@ -2772,7 +2794,7 @@ async function initMap() {
     syncUtilityMenuState();
   };
 
-  const fonds = {};
+  const fonds = Object.create(null);
   let defaultBasemap = null;
   basemapEntries = [];
   for (const basemap of MAP_SETTINGS.fonds || []) {

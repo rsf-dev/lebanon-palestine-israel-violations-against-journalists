@@ -181,7 +181,7 @@ let statsSelectedOblast = null;
 let statsSelectedVille = null;
 let statsSelectedAuthor = null;
 
-let currentLang = DEFAULT_LANGUAGE;
+let currentLang = getInitialLanguage();
 
 // GeoJSON / layers
 let mapBorderLayer = null;
@@ -2553,11 +2553,29 @@ async function loadEventsForLang(lang) {
 
 /// === LANGUE ===
 
+function normalizeLanguage(lang) {
+  const code = String(lang || "").trim().toLowerCase().split(/[-_]/)[0];
+  return REGLAGES.projet.langues.includes(code) ? code : DEFAULT_LANGUAGE;
+}
+
+function getInitialLanguage() {
+  return normalizeLanguage(new URLSearchParams(window.location.search).get("lang"));
+}
+
+function writeLanguageToUrl(lang) {
+  const url = new URL(window.location.href);
+  url.searchParams.set("lang", lang);
+  window.history.replaceState(window.history.state, "", url);
+}
+
 let languageChangeSequence = 0;
-async function setLanguage(lang) {
+async function setLanguage(lang, { updateUrl = true } = {}) {
   const sequence = ++languageChangeSequence;
-  if (!(REGLAGES.projet.langues || []).includes(lang)) return;
-  if (lang === currentLang) return;
+  lang = normalizeLanguage(lang);
+  if (lang === currentLang) {
+    if (updateUrl) writeLanguageToUrl(lang);
+    return;
+  }
 
   Playback.pause();
   let nextEvents;
@@ -2598,6 +2616,7 @@ async function setLanguage(lang) {
 
   afficherEvenements();
   applyStaticTextsForLang(lang);
+  if (updateUrl) writeLanguageToUrl(lang);
   buildSupplementFilterButtons();
   buildRelatedMaps();
   updateFloatingSubtitleFromData();
@@ -2839,8 +2858,8 @@ async function initMap() {
 
   setLoadingProgress(50);
 
-  currentLang = DEFAULT_LANGUAGE;
   applyStaticTextsForLang(currentLang);
+  if (new URLSearchParams(window.location.search).has("lang")) writeLanguageToUrl(currentLang);
   updateFloatingSubtitleFromData();
 
   setLoadingProgress(65);
@@ -2936,19 +2955,13 @@ onDomReady(() => {
   document.querySelectorAll(".lang-btn").forEach(btn => {
     const available = (REGLAGES.projet.langues || []).includes(btn.dataset.lang);
     btn.hidden = !available;
-    const initiallyActive = btn.dataset.lang === DEFAULT_LANGUAGE;
+    const initiallyActive = btn.dataset.lang === currentLang;
     btn.classList.toggle("lang-active", initiallyActive);
     btn.classList.toggle("active", initiallyActive);
     btn.setAttribute("aria-pressed", initiallyActive ? "true" : "false");
     btn.addEventListener("click", async () => {
       const lang = btn.dataset.lang;
       await setLanguage(lang);
-      document.querySelectorAll(".lang-btn").forEach(b => {
-        const active = b.dataset.lang === lang;
-        b.classList.toggle("lang-active", active);
-        b.classList.toggle("active", active);
-        b.setAttribute("aria-pressed", active ? "true" : "false");
-      });
     });
   });
 

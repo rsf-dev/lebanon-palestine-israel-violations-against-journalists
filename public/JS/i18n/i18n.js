@@ -31,6 +31,12 @@ export function applyStaticTextsForLang(lang) {
   const strings = UI_STRINGS[lang] || UI_STRINGS.fr;
   const ui = strings.ui || {};
   document.documentElement.lang = lang;
+  document.querySelectorAll(".lang-btn").forEach(button => {
+    const active = button.dataset.lang === lang;
+    button.classList.toggle("lang-active", active);
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", active ? "true" : "false");
+  });
 
   const setText = (selector, value) => {
     const element = document.querySelector(selector);

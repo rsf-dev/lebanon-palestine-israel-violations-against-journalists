@@ -284,8 +284,8 @@ export const REGLAGES = {
     couleursBase: {
       "Bande de Gaza": "#2FBF71",
       "Cisjordanie": "#2FBF71",
-      "Israel": "#E4312A",
-      "Liban": "#F7D457"
+      "Israel": "#F7D457",
+      "Liban": "#E4312A"
     },
     couleurParDefaut: "#015CBB"
   },
@@ -431,7 +431,9 @@ export const REGLAGES = {
     { href: "https://rsf-carte-journalistes-tues-disparus-otages-detenus-2025.rsf.org/", image: "assets/carte_bilan.png", labels: { fr: "Violences contre les journalistes dans le monde (édition 2025)", en: "Violence against journalists worldwide (2025 edition)" } },
     { href: "https://ukraine-mobilisation.rsf.org/", image: "assets/carte_ukraine.png", labels: { fr: "Surveillance des violences contre les journalistes en Ukraine", en: "Monitoring violence against journalists in Ukraine" } },
     { href: "https://grands-lacs.rsf.org/", image: "assets/grands-lacs.png", labels: { fr: "Surveillance des violences contre les journalistes dans la région des Grands Lacs africains", en: "Monitoring violence against journalists in Africa's Great Lakes region" } },
-    { href: "https://routes-de-l-exil.data.rsf.org/", image: "assets/carte_exil.png", labels: { fr: "Les journalistes sur les routes de l'exil (édition 2021 à 2025)", en: "Journalists on the routes of exile (2021 to 2025 edition)" } }
+    { href: "https://routes-de-l-exil.data.rsf.org/", image: "assets/carte_exil.png", labels: { fr: "Les journalistes sur les routes de l'exil (édition 2021 à 2025)", en: "Journalists on the routes of exile (2021 to 2025 edition)" } },
+    { href: "https://mexico-press-violations.data.rsf.org/", image: "assets/carte_mexique.png", labels: { fr: "Surveillance des assassinats de journalistes au Mexique", en: "Monitoring murders of journalists in Mexico" } },
+    { href: "https://lebanon-palestine-israel-violations-against-journalists.data.rsf.org/", image: "assets/carte_moyen_orient.png", labels: { fr: "Surveillance des violations envers les journalistes au Liban, en Palestine et en Israël", en: "Monitoring violations against journalists in Lebanon, Palestine and Israel" } }
   ],
 
   textes: {
@@ -493,7 +495,7 @@ export const REGLAGES = {
         timelineZoomYear: "Zoomer sur cette année",
         caseSingular: "1 cas",
         casePlural: "{count} cas",
-        footerCredits: `<b>Graphiques et carte :</b> <i>Vianney Loriquet / RSF.</i><br><b>Source données :</b> <i>RSF, monitoring Liban / Palestine / Israël.</i><br><b>Géométries :</b> <i>geoBoundaries, données simplifiées.</i>`,
+        footerCredits: `<b>Graphiques et carte :</b> <i>Reporters sans Frontières</i><br><b>Source données :</b> <i>RSF, monitoring Liban / Palestine / Israël.</i><br><b>Géométries :</b> <i>geoBoundaries, données simplifiées.</i>`,
         flaticonCredits: `<ul class="credits-list"><li>Icônes issues du kit cartographique RSF.</li></ul>`
       },
       cartography: { title: "RSF cartographie", close: "Fermer" },
@@ -557,7 +559,7 @@ export const REGLAGES = {
         timelineZoomYear: "Zoom into this year",
         caseSingular: "1 case",
         casePlural: "{count} cases",
-        footerCredits: `<b>Charts and map:</b> <i>Vianney Loriquet / RSF.</i><br><b>Data source:</b> <i>RSF, Lebanon / Palestine / Israel monitoring.</i><br><b>Geometries:</b> <i>geoBoundaries, simplified data.</i>`,
+        footerCredits: `<b>Charts and map:</b> <i>Reporters sans Frontières</i><br><b>Data source:</b> <i>RSF, Lebanon / Palestine / Israel monitoring.</i><br><b>Geometries:</b> <i>geoBoundaries, simplified data.</i>`,
         flaticonCredits: `<ul class="credits-list"><li>Icons from the RSF cartography kit.</li></ul>`
       },
       cartography: { title: "RSF cartography", close: "Close" },

@@ -9,7 +9,7 @@ try {
   const version = new URL(import.meta.url).searchParams.get("v") || "dev";
   await import(`./main.js?v=${encodeURIComponent(version)}`);
 } catch (error) {
-  console.error("Impossible de démarrer la carte", error);
+  console.error("Unable to load the map", error);
   const retry = document.getElementById("loading-retry");
   if (retry) {
     retry.hidden = false;

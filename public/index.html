@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org https://server.arcgisonline.com; font-src 'self'; connect-src 'self' https://tiles.openfreemap.org https://server.arcgisonline.com; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org https://server.arcgisonline.com; font-src 'self'; connect-src 'self' https://tiles.openfreemap.org https://server.arcgisonline.com; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="noindex, nofollow"> <!-- a changer a la publication -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,23 +13,31 @@
 
   <link rel="stylesheet" href="css/fonts.css?v=2026-10-27-security-2">
 
-  <link rel="stylesheet" href="vendor/leaflet-1.9.4/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
-  <script src="vendor/leaflet-1.9.4/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="vendor/leaflet-1.9.4/leaflet.css"
+    integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+  <script src="vendor/leaflet-1.9.4/leaflet.js"
+    integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH"
+    crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" href="vendor/maplibre-6.15.0/maplibre-gl.css" integrity="sha384-S+OnE5M4U3Qc2nR0RgljGrVs06xqfRg8L7uFk/pOF5+sRuSDG4oKkqKZmFrx7w09" crossorigin="anonymous">
-  
+  <link rel="stylesheet" href="vendor/maplibre-6.15.0/maplibre-gl.css"
+    integrity="sha384-S+OnE5M4U3Qc2nR0RgljGrVs06xqfRg8L7uFk/pOF5+sRuSDG4oKkqKZmFrx7w09" crossorigin="anonymous">
+
   <script src="vendor/leaflet-1.9.4/leaflet.js"></script>
 
-  <link rel="stylesheet" href="vendor/markercluster-1.5.3/MarkerCluster.css" integrity="sha384-pmjIAcz2bAn0xukfxADbZIb3t8oRT9Sv0rvO+BR5Csr6Dhqq+nZs59P0pPKQJkEV" crossorigin="anonymous">
-  <link rel="stylesheet" href="vendor/markercluster-1.5.3/MarkerCluster.Default.css" integrity="sha384-wgw+aLYNQ7dlhK47ZPK7FRACiq7ROZwgFNg0m04avm4CaXS+Z9Y7nMu8yNjBKYC+" crossorigin="anonymous">
-  <script src="vendor/markercluster-1.5.3/leaflet.markercluster.js" integrity="sha384-eXVCORTRlv4FUUgS/xmOyr66XBVraen8ATNLMESp92FKXLAMiKkerixTiBvXriZr" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="vendor/markercluster-1.5.3/MarkerCluster.css"
+    integrity="sha384-pmjIAcz2bAn0xukfxADbZIb3t8oRT9Sv0rvO+BR5Csr6Dhqq+nZs59P0pPKQJkEV" crossorigin="anonymous">
+  <link rel="stylesheet" href="vendor/markercluster-1.5.3/MarkerCluster.Default.css"
+    integrity="sha384-wgw+aLYNQ7dlhK47ZPK7FRACiq7ROZwgFNg0m04avm4CaXS+Z9Y7nMu8yNjBKYC+" crossorigin="anonymous">
+  <script src="vendor/markercluster-1.5.3/leaflet.markercluster.js"
+    integrity="sha384-eXVCORTRlv4FUUgS/xmOyr66XBVraen8ATNLMESp92FKXLAMiKkerixTiBvXriZr"
+    crossorigin="anonymous"></script>
 
   <link id="app-stylesheet" rel="stylesheet" href="css/style.css?v=2026-10-22-icons-exil-1">
   <link rel="stylesheet" href="css/panelScroll.css?v=2026-10-12-scroll-v8">
   <link rel="stylesheet" href="css/themes.css?v=2026-10-26-dark-actions-1">
   <link rel="stylesheet" href="css/nearbyNavigation.css?v=2026-10-22-nearby-nav-1">
   <script src="JS/embed.js?v=2026-10-27-security-2"></script>
-  <script type="module" src="JS/bootstrap.js?v=2026-11-05-language-url-1"></script>
+  <script type="module" src="JS/bootstrap.js?v=2026-11-05-locations-status-tutorial-1"></script>
 
 </head>
 
@@ -37,15 +46,15 @@
     <div class="loading-box">
       <h1 class="loading-title">RSF Data</h1>
       <h2 class="loading-subtitle">
-        Monitoring des violations envers les journalistes au Liban, en Palestine et en Israël
+        Monitoring abuses against journalists in Lebanon, Palestine and Israel
       </h2>
 
       <div class="loading-bar">
         <div class="loading-bar-fill" id="loading-bar-fill"></div>
       </div>
 
-      <p class="loading-subtext">Chargement de la carte...</p>
-      <button id="loading-retry" class="loading-retry" type="button" hidden>Réessayer</button>
+      <p class="loading-subtext">Map loading…</p>
+      <button id="loading-retry" class="loading-retry" type="button" hidden>Please try again</button>
     </div>
   </div>
 
@@ -212,10 +221,12 @@
           <!-- légende panel droit -->
           <div class="legend-row">
             <span id="right-legend-section-title" class="legend-row-title">Légende</span>
-            <button id="collapse-right-legend" class="collapse-btn" type="button" aria-expanded="true" aria-controls="right-panel-legend" aria-labelledby="right-legend-section-title">▾</button>
+            <button id="collapse-right-legend" class="collapse-btn" type="button" aria-expanded="true"
+              aria-controls="right-panel-legend" aria-labelledby="right-legend-section-title">▾</button>
           </div>
 
-          <div id="right-panel-legend" class="right-panel-legend collapsible-body" role="group" aria-labelledby="right-legend-section-title"></div>
+          <div id="right-panel-legend" class="right-panel-legend collapsible-body" role="group"
+            aria-labelledby="right-legend-section-title"></div>
 
           <div id="country-chart-container">
             <p class="chart-placeholder">
@@ -227,10 +238,12 @@
         <div id="right-view-authors" class="right-view hidden">
           <div class="legend-row">
             <span id="authors-legend-section-title" class="legend-row-title">Légende</span>
-            <button id="collapse-authors-legend" class="collapse-btn" type="button" aria-expanded="true" aria-controls="authors-panel-legend" aria-labelledby="authors-legend-section-title">▾</button>
+            <button id="collapse-authors-legend" class="collapse-btn" type="button" aria-expanded="true"
+              aria-controls="authors-panel-legend" aria-labelledby="authors-legend-section-title">▾</button>
           </div>
 
-          <div id="authors-panel-legend" class="right-panel-legend collapsible-body" role="group" aria-labelledby="authors-legend-section-title"></div>
+          <div id="authors-panel-legend" class="right-panel-legend collapsible-body" role="group"
+            aria-labelledby="authors-legend-section-title"></div>
 
           <div id="authors-chart-container">
             <p class="chart-placeholder">
@@ -293,7 +306,9 @@
     </section>
   </div>
 
-  <script async src="vendor/iframe-resizer-child-5.5.7/index.umd.js" integrity="sha384-O+iwzOEtFPBNZ2EuuhvcOeBsvwP1/NCn7CTVQKU4dI5BgX6HCgynUzocV5Ib4gZw" crossorigin="anonymous"></script>
+  <script async src="vendor/iframe-resizer-child-5.5.7/index.umd.js"
+    integrity="sha384-O+iwzOEtFPBNZ2EuuhvcOeBsvwP1/NCn7CTVQKU4dI5BgX6HCgynUzocV5Ib4gZw"
+    crossorigin="anonymous"></script>
 
 
 </body>

@@ -310,14 +310,20 @@ function getEventAuthor(ev) {
   return REGLAGES.auteurs.labels?.[author]?.[currentLang] || author;
 }
 
+function getLocalizedEventLocation(ev, lang) {
+  const location = String(getFirstConfiguredValue(ev, DATA_FIELDS.emplacement) || "").trim();
+  return REGLAGES.emplacements?.labels?.[location]?.[lang] || location;
+}
+
 function getEventMedia(ev) {
   const media = getFirstConfiguredValue(ev, DATA_FIELDS.media) || "";
   return media.toString().trim() || null;
 }
 
-function getEventStatus(ev) {
+function getEventStatus(ev, lang = currentLang) {
   const status = getFirstConfiguredValue(ev, DATA_FIELDS.statut) || "";
-  return status.toString().trim() || null;
+  const value = status.toString().trim();
+  return REGLAGES.statutsEvenements?.labels?.[normalizePlainText(value)]?.[lang] || value || null;
 }
 
 function cleanOptionalText(value) {
@@ -2518,7 +2524,7 @@ async function loadEventsForLang(lang) {
 
   data.forEach((ev, index) => {
     ev.date = getFirstConfiguredValue(ev, DATA_FIELDS.date) || "";
-    ev.lieu = getFirstConfiguredValue(ev, DATA_FIELDS.emplacement) || "";
+    ev.lieu = getLocalizedEventLocation(ev, lang);
     ev.journaliste = getFirstConfiguredValue(ev, DATA_FIELDS.personne) || `Cas ${index + 1}`;
     ev.description = getLocalizedEventDescription(ev, lang);
     const rawType = getFirstConfiguredValue(ev, DATA_FIELDS.categorie) || REGLAGES.categorieParDefaut;
@@ -2527,7 +2533,7 @@ async function loadEventsForLang(lang) {
     ev.compteur_evenements = getFirstConfiguredValue(ev, DATA_FIELDS.identifiant) || index + 1;
     ev.auteur = normalizeAuthorName(getFirstConfiguredValue(ev, DATA_FIELDS.auteur)) || "";
     ev.media = getEventMedia(ev) || "";
-    ev.statut_evenement = getEventStatus(ev) || "";
+    ev.statut_evenement = getEventStatus(ev, lang) || "";
     ev.allegations_torture = hasTortureAllegation(ev);
     ev.lien = getFirstConfiguredValue(ev, DATA_FIELDS.lien) || "";
 

@@ -214,7 +214,7 @@ export const REGLAGES = {
       slug: "emprisonnement",
       icone: "emprisonne.png",
       couleur: "#00A5B5",
-      labels: { fr: "Emprisonnement", en: "Imprisonment" },
+      labels: { fr: "Emprisonnement", en: "Detention" },
       valeursEntree: ["Emprisonne", "Emprisonné", "Imprisonment", "Imprisoned"]
     },
     {
@@ -449,7 +449,7 @@ export const REGLAGES = {
       mode: "valeurs",
       champs: ["Allegations_torture", "allegations_torture"],
       valeurs: ["oui", "yes", "true", "1", true, 1],
-      labels: { fr: "Torture", en: "Torture" }
+      labels: { fr: "Cas de torture", en: "Cases involving torture" }
     },
     {
       id: "ongoing_imprisonment",
@@ -458,7 +458,7 @@ export const REGLAGES = {
       categorie: "Emprisonnement",
       champs: ["Statut", "statut", "status", "Status", "statut_evenement"],
       valeurs: ["en cours", "ongoing"],
-      labels: { fr: "En cours", en: "Ongoing" }
+      labels: { fr: "Cas en cours", en: "Ongoing cases" }
     }
   ],
 
@@ -512,11 +512,11 @@ export const REGLAGES = {
       occupationLegend: { title: "Couche contextuelle", datePrefix: "Situation au", type01: "Zone de contexte 1", type02: "Zone de contexte 2", type03: "Zone de contexte 3", type04: "Zone de contexte 4", source: "Source : à compléter" },
       loader: { subtitle: "Monitoring des violations envers les journalistes au Liban, en Palestine et en Israël", subtext: "Chargement de la carte...", error: "Impossible de charger la carte. Réessayez.", retry: "Réessayer" },
       tutorial: {
-        step1: { title: "Bienvenue", subtitle: "Violences contre les journalistes", body: "Cette carte présente les cas documentés par RSF au Liban, en Palestine et en Israël.", body2: "Les zones, auteurs, catégories et périodes peuvent être explorés depuis les contrôles de la carte.", nextLabel: "Montrez-moi" },
-        step2: { title: "Filtres de la carte", subtitle: "Zones, emplacements, auteurs et catégories", body: "Le composant titre regroupe les principaux filtres.", body2: "Le filtre 'en cours' permet d'isoler les journalistes actuellement détenus dans la zone. Les détentions peuvent aller de l'emprisonnement à l'assignation à résidence dans de rares cas.", nextLabel: "Suivant" },
-        step3: { title: "Menu de navigation", subtitle: "Panneaux et modes", body: "Le menu rassemble la liste des cas, le choroplèthe, les statistiques, les auteurs et la chronologie.", body2: "Le mode choroplèthe, autrement dit 'par région', peut être activé ou désactivé depuis le menu.", nextLabel: "Suivant" },
+        step1: { title: "Bienvenue", subtitle: "Comment utiliser cette carte", body: "Cette carte présente les cas documentés par RSF au Liban, en Palestine et en Israël.", body2: "Les zones, auteurs, catégories et périodes peuvent être explorés depuis les contrôles de la carte dans le composant situé en bas à gauche de l'écran.", nextLabel: "Montrez-moi" },
+        step2: { title: "Filtres de la carte", subtitle: "Zones, emplacements, auteurs et catégories", body: "Ce composant situé en bas à gauche regroupe aussi les principaux filtres.", body2: "Le filtre 'en cours' permet d'isoler les journalistes actuellement détenus dans la zone. Les détentions peuvent aller de l'emprisonnement à l'assignation à résidence dans de rares cas.", nextLabel: "Suivant" },
+        step3: { title: "Menu de navigation", subtitle: "Panneaux et modes", body: "Le menu rassemble la liste des cas, le mode de carte choroplèthe, les statistiques, les auteurs et la chronologie.", body2: "Le mode choroplèthe, qui permet de voir la répartition des violences par région, peut être activé ou désactivé depuis le menu.", nextLabel: "Suivant" },
         step4: { title: "Liste des cas", subtitle: "Depuis la liste", body: "La liste affiche les cas documentés et leur description, ainsi que les détails rassemblés par RSF.", body2: "Cliquez sur un cas pour centrer la carte sur son emplacement.", nextLabel: "Suivant" },
-        step5: { title: "Lecture et chronologie", subtitle: "Explorer une période", body: "Le module lecture rejoue les cas dans l'ordre chronologique.", body2: "Les calendriers et la chronologie permettent de définir la période visible, soit en sélectionnant la date, soit en déplaçant les curseurs sur la timeline.", nextLabel: "Suivant" },
+        step5: { title: "Lecture et chronologie", subtitle: "Explorer une période", body: "Le module lecture rejoue les cas dans l'ordre chronologique.", body2: "Les boutons 'début', 'fin' et la chronologie permettent de définir la période visible, soit en sélectionnant la date, soit en déplaçant les curseurs sur la timeline.", nextLabel: "Suivant" },
         step6: { title: "Statistiques", subtitle: "Zones, emplacements et auteurs", body: "Le panneau statistiques affiche les répartitions des cas selon les zones, emplacements et auteurs.", body2: "Cliquez sur un label pour zoomer sur la zone concernée et/ou filtrer la carte.", nextLabel: "Terminer" },
         skipLabel: "Passer"
       },
@@ -577,11 +577,11 @@ export const REGLAGES = {
       loader: { subtitle: "Lebanon, Palestine, Israel: monitoring abuses committed against journalists", subtext: "Loading map...", error: "Unable to load the map. Try again.", retry: "Try again" },
       tutorial: {
         step1: { title: "Welcome", subtitle: "Tutorial", body: "This map presents cases documented by RSF in Lebanon, Palestine and Israel.", body2: "Areas, perpetrators, categories and periods can be explored from the map controls.", nextLabel: "Show me" },
-        step2: { title: "Map filters", subtitle: "Areas, locations, authors and categories", body: "The title component groups the main filters.", body2: "The “ongoing” category filters the map to show the journalists who are currently detained in the area. Detentions can range from imprisonment to house arrest in rare cases.", nextLabel: "Next" },
-        step3: { title: "Navigation menu", subtitle: "Panels and modes", body: "These three bars on the left are where you can find the list of cases, the choropleth map, statistics, perpetrators of the crimes and the timeline.", body2: "The choropleth map, also known as 'by region', can be enabled or disabled from the menu.", nextLabel: "Next" },
-        step4: { title: "Case list", subtitle: "From the list", body: "The list displays documented cases and their descriptions, as well as the information gathered by RSF.", body2: "Click a case to centre the map on its location.", nextLabel: "Next" },
-        step5: { title: "Playback and timeline", subtitle: "Explore a period", body: "The playback module replays cases in chronological order.", body2: "The calendars and the timeline allow you to choose the visible period, either by selecting the date or by moving the cursors on the timeline.", nextLabel: "Next" },
-        step6: { title: "Statistics", subtitle: "Areas, locations and perpetrators", body: "The statistics panel displays the distribution of cases by areas, locations and the perpetrators of the crimes.", body2: "Click a label to zoom in on the area and/or filter the map.", nextLabel: "Finish" },
+        step2: { title: "Map filters", subtitle: "Areas, locations, authors and categories", body: "The main filters can be found in the map legend on the bottom left.", body2: "The 'ongoing' category filters the map to show the journalists who are currently detained in the area. Detentions can range from imprisonment to house arrest in rare cases.", nextLabel: "Next" },
+        step3: { title: "Navigation menu", subtitle: "Panels and modes", body: "The menu button — the three bars on the left — are where you can find the list of cases, the choropleth map, statistics, perpetrators of the crimes and the timeline.", body2: "You can enable or disable the choropleth map — which shows the different regions colored by the amount of abuses committed in that area — from the menu.", nextLabel: "Next" },
+        step4: { title: "List of cases", subtitle: "From the list", body: "The list displays documented cases and their descriptions, as well as the information gathered by RSF.", body2: "Click a case to centre the map on its location.", nextLabel: "Next" },
+        step5: { title: "Playback and timeline", subtitle: "Explore a period", body: "The playback button — the arrow at the bottom of the map’s legend — plays the cases in chronological order.", body2: "The date buttons in the map legend and the timeline button in the menu allow you to choose the time period, either by selecting the date or by moving the cursors on the timeline.", nextLabel: "Next" },
+        step6: { title: "Statistics", subtitle: "Areas, locations and perpetrators", body: "The statistics panel displays the distribution of cases by areas, locations and the perpetrators of the crimes.", body2: "Click the name of the place or the name of the journalist in the sidebar to zoom in on the area and/or filter the map.", nextLabel: "Finish" },
         skipLabel: "Skip"
       },
       ui: {
@@ -594,8 +594,8 @@ export const REGLAGES = {
         eventFooterNote: "<b>Note:</b> this map lists cases documented by RSF through its monitoring work. Listed authors reflect the information available at publication date.",
         floatingTitle: "Lebanon, Palestine, Israel: monitoring abuses committed against journalists",
         floatingSubtitle: "Cases documented by RSF.",
-        floatingSubtitleSummary: "From {startYear} to {endYear}, {total} cases have been documented: {imprisonments} imprisonments and {killings} killings.",
-        floatingSubtitleSummaryNoPeriod: "In the current dataset, {total} cases have been documented: {imprisonments} imprisonments and {killings} killings.",
+        floatingSubtitleSummary: "From {startYear} to {endYear}, {total} cases have been documented: {imprisonments} detentions and {killings} killings.",
+        floatingSubtitleSummaryNoPeriod: "In the current dataset, {total} cases have been documented: {imprisonments} detentions and {killings} killings.",
         panelWhenOblast: "Statistics will appear here as soon as an area, location or perpetrator is selected.",
         chartNoEvents: "This area has no cases in the available categories.",
         chartNoEventsCategory: "No cases for this category.",
@@ -605,14 +605,14 @@ export const REGLAGES = {
         tutoButton: "Tutorial",
         tutorialLangButton: "Voir en français",
         menuLanguage: "Language",
-        menuEvents: "Case list",
+        menuEvents: "List of cases",
         menuRegions: "Choropleth map",
         menuStats: "Statistics",
         menuAuthors: "Perpetrators",
         menuTimeline: "Timeline",
         menuOpen: "Open menu",
         navigationProche: { evenement: "Go to the nearest event", groupe: "Go to the nearest group ({count} events)" },
-        rsfCartography: "RSF cartography",
+        rsfCartography: "RSF data maps",
         bottomChartTitle: "Evolution by type of violence",
         oblastsBtn: "Areas",
         villesBtn: "Locations",
@@ -630,10 +630,10 @@ export const REGLAGES = {
         timelineZoomYear: "Zoom into this year",
         caseSingular: "1 case",
         casePlural: "{count} cases",
-        footerCredits: `<b>Charts and map:</b> <i>Reporters sans Frontières</i><br><b>Data source:</b> <i>RSF, Lebanon / Palestine / Israel monitoring.</i><br><b>Geometries:</b> <i>geoBoundaries, simplified data.</i>`,
-        flaticonCredits: `<ul class="credits-list"><li>Icons from the RSF cartography kit.</li></ul>`
+        footerCredits: `<b>Charts and map:</b> <i>Reporters sans Frontières (RSF)</i><br><b>Data source:</b> <i>RSF, Lebanon / Palestine / Israel monitoring.</i><br><b>Geometries:</b> <i>geoBoundaries, simplified data.</i>`,
+        flaticonCredits: `<ul class="credits-list"><li>Icons from the RSF Data kit.</li></ul>`
       },
-      cartography: { title: "RSF cartography", close: "Close" },
+      cartography: { title: "RSF data maps", close: "Close" },
       playbackMessages: { example_title: "Timeline cue", example_body: "Add cues in reglages.js, then translate them here." }
     }
   }

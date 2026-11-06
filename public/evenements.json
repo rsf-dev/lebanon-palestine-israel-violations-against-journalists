@@ -28,7 +28,7 @@
     "lng": 35.24475975471024,
     "lien_CP": "",
     "Allegations_torture": "",
-    "description_FR": "La journaliste indépendante Bushra Al-Taweel a été arrêtée le 8 novembre 2020 à un point de contrôle militaire israélien à Naplouse, en Cisjordanie occupée. L’arrestation a eu lieu, quelque mois après sa libération, le 28 juillet 2020, à la suite de aaprès huit mois d'une précédente détention administrative. Le 26 novembre 2020, après 18 jours d'enfermement, la journaliste a été visée par une décision du tribunal militaire israélien d'Ofer de maintien en détention administrative pour quatre mois. Avant l'expiration de cette première décision, le 7 mars 2021, les autorités israéliennes ont renouvelé sa détention administrative pour une période supplémentaire de quatre mois, renouvelable sans limite. La journaliste a été libérée le 5 octobre 2021.",
+    "description_FR": "La journaliste indépendante Bushra Al-Taweel a été arrêtée le 8 novembre 2020 à un point de contrôle militaire israélien à Naplouse, en Cisjordanie occupée. L’arrestation a eu lieu quelque mois après sa libération, le 28 juillet 2020, à la suite de huit mois d'une précédente détention administrative. Le 26 novembre 2020, après 18 jours d'enfermement, la journaliste a été visée par une décision du tribunal militaire israélien d'Ofer de maintien en détention administrative pour quatre mois. Avant l'expiration de cette première décision, le 7 mars 2021, les autorités israéliennes ont renouvelé sa détention administrative pour une période supplémentaire de quatre mois, renouvelable sans limite. La journaliste a été libérée le 5 octobre 2021.",
     "description_EN": "Freelance journalist Bushra Al-Taweel was arrested on 8 November 2020 at an Israeli military checkpoint in Nablus, in the occupied West Bank. Just months earlier, on 28 July 2020, she had been released from an eight-month administrative detention. On 26 November 2020, after 18 days behind bars, the Israeli military court in Ofer ordered that she held in administrative detention for another four months. Before this order expired on 7 March 2021, the Israeli authorities renewed her administrative detention for another four months, renewable indefinitely. The journalist was eventually released on 5 October 2021."
   },
   {
@@ -92,7 +92,7 @@
     "lng": 35.0240724026694,
     "lien_CP": "",
     "Allegations_torture": "",
-    "description_FR": "Hazem Nasser, correspondant de la chaîne satellitaire palestinienne Aln-Najah, a été arrêté le 12 mai 2021 par l'armée israélienne à un checkpoint près de Tulkarem, au nord de la Cisjordanie occupée, après avoir couvert des affrontements entre des civils palestiniens et la police israélienne à Hébron la veille. Placé en détention administrative, il a été libéré le 1er novembre 2022.",
+    "description_FR": "Hazem Nasser, correspondant de la chaîne satellitaire palestinienne Al-Najah, a été arrêté le 12 mai 2021 par l'armée israélienne à un checkpoint près de Tulkarem, au nord de la Cisjordanie occupée, après avoir couvert des affrontements entre des civils palestiniens et la police israélienne à Hébron la veille. Placé en détention administrative, il a été libéré le 1er novembre 2022.",
     "description_EN": "Hazem Nasser, a correspondent for the Palestinian satellite channel Al-Najah, was arrested on 12 May 2021 by the Israeli army at a checkpoint near Tulkarm, in the north of the occupied West Bank, after covering clashes between Palestinian civilians and the Israeli police in Hebron the previous day. He was placed in administrative detention and subsequently released on 1 November 2022."
   },
   {
@@ -1629,7 +1629,7 @@
     "lien_CP": "",
     "Allegations_torture": "",
     "description_FR": "Le journaliste indépendant Bahaa Al Ghoul été arrêté le 16 novembre 2023 au checkpoint du corridor de Netzarim, alors qu'il était expulsé du nord vers le sud de la bande de Gaza. Il a été libéré le 27 février 2025 de la prison de Ketziot-Al Naqab.",
-    "description_EN": "Freelance journalist Bahaa Al Ghoul was arrested on 16 November 2023 at the Netzarim Corridor checkpoint, while being forcibly displaced from the north to the south of the Gaza Strip. He was released from Ketziot-Al Naqab prison on 27 February 2025."
+    "description_EN": "Freelance journalist Bahaa Al Ghoul was arrested on 16 November 2023 at the Netzarim Corridor checkpoint, while being forcibly displaced from the north to the south of the Gaza Strip.\nHe was released from Ketziot-Al Naqab\n prison on 27 February 2025."
   },
   {
     "date": "2024-03-18",
@@ -1804,8 +1804,8 @@
     "lng": 34.39295186470993,
     "lien_CP": "",
     "Allegations_torture": "",
-    "description_FR": "Saed Abu Nabhan, caméraman indépendant de 25 ans a été tué par balles alors qu’il était en reportage dans un camp de réfugiés de la ville de Nuseirat, dans le centre de la bande de Gaza, le vendredi 10 janvier 2025.",
-    "description_EN": "Saed Abu Nabhan, a 25-year-old freelance cameraman, was shot dead whilst reporting from a refugee camp in the town of Nuseirat, in central Gaza, on 10 January 2025."
+    "description_FR": "Saed Abu Nabhan, caméraman indépendant de 25 ans a été tué par balles par des soldats israéliens alors qu’il était en reportage dans un camp de réfugiés de la ville de Nuseirat, dans le centre de la bande de Gaza, le vendredi 10 janvier 2025, selon les informations de RSF.",
+    "description_EN": "Saed Abu Nabhan, a 25-year-old freelance cameraman, was shot dead by Israeli soldiers whilst reporting from a refugee camp in the town of Nuseirat, in central Gaza, on 10 January 2025, according to RSF’s information."
   },
   {
     "date": "2023-10-20",
@@ -2140,7 +2140,7 @@
     "lng": 34.46132997946098,
     "lien_CP": "",
     "Allegations_torture": "",
-    "description_FR": "Ahmad Qalaja était caméraman et photojournaliste, travaillant notamment pour la chaîne d’information Qatarienne Al-Araby TV. Selon les informations de RSF, le 5 juin 2026 il a été ciblé,, par une frappe d’un drone israélien visant un groupe de journalistes réunis dans la cour de l’hôpital Al-Ahli, à Gaza Ville,. Ahmad Qalaja a succombé à ses blessures à l’hôpital le jour suivant.",
+    "description_FR": "Ahmad Qalaja était caméraman et photojournaliste, travaillant notamment pour la chaîne d’information Qatarienne Al-Araby TV. Selon les informations de RSF, le 5 juin 2026 il a été ciblé par une frappe d’un drone israélien visant un groupe de journalistes réunis dans la cour de l’hôpital Al-Ahli, à Gaza Ville. Ahmad Qalaja a succombé à ses blessures à l’hôpital le jour suivant.",
     "description_EN": "Ahmad Qalaja was a cameraman and photojournalist who worked for several media outlets, including the Qatari news channel Al Araby TV. On 5 June 2025, he was targeted by an Israeli drone strike that hit a group of journalists gathered in the courtyard of Al-Ahli Hospital in Gaza City. Ahmad Qalaja died of his injuries in hospital the following day."
   },
   {
@@ -2252,7 +2252,7 @@
     "lng": 35.29899328860339,
     "lien_CP": "",
     "Allegations_torture": "",
-    "description_FR": "Ali Al-Samoudi, journaliste palestinien et figure médiatiqes collaborant avec le quotidienAl Quds et la chaîne qatarienne Al Jazeera, a été arrêté à son domicile à Jénine, au nord de la Cisjordanie occupée, le 29 avril 2025. Il a été libéré un an plus tard, le 30 avril 2026.",
+    "description_FR": "Ali Al-Samoudi, journaliste palestinien et figure médiatiqes collaborant avec le quotidien Al Quds et la chaîne qatarienne Al Jazeera, a été arrêté à son domicile à Jénine, au nord de la Cisjordanie occupée, le 29 avril 2025. Il a été libéré un an plus tard, le 30 avril 2026.",
     "description_EN": "Ali Al-Samoudi, a journalist for the Palestinian media outlet Al Quds and contributor to the Qatari channel Al Jazeera, was arrested at his home in Jenin, in the northern occupied West Bank, on 29 April 2025. He was released a year later, on 30 April 2026."
   },
   {

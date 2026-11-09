@@ -197,7 +197,7 @@ export const EventsRenderer = (() => {
         const dateTxt = ts ? formatDateFR(ts) : "—";
         const author = getEventAuthor?.(ev);
         const media = getEventMedia?.(ev);
-        const status = getEventStatus?.(ev);
+        const status = ev.type_violence === "Emprisonnement" ? getEventStatus?.(ev) : null;
         const comment = getEventComment?.(ev) || "";
         const torture = hasTortureAllegation?.(ev);
         const supplementBadges = typeof getEventSupplementBadges === "function"

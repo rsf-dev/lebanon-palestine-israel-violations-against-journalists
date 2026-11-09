@@ -567,7 +567,7 @@ export const REGLAGES = {
         caseSingular: "1 cas",
         casePlural: "{count} cas",
         footerCredits: `<b>Graphiques et carte :</b> <i>Reporters sans Frontières</i><br><b>Source données :</b> <i>RSF, monitoring Liban / Palestine / Israël.</i><br><b>Géométries :</b> <i>geoBoundaries, données simplifiées.</i>`,
-        flaticonCredits: `<ul class="credits-list"><li>Icônes issues du kit cartographique RSF.</li></ul>`
+        flaticonCredits: `<ul class="credits-list"><li>Icônes issues du kit cartographique RSF / Christina Atik</li></ul>`
       },
       cartography: { title: "RSF cartographie", close: "Fermer" },
       playbackMessages: { example_title: "Repère chronologique", example_body: "Ajoutez vos repères dans reglages.js puis traduisez-les ici." }
@@ -631,7 +631,7 @@ export const REGLAGES = {
         caseSingular: "1 case",
         casePlural: "{count} cases",
         footerCredits: `<b>Charts and map:</b> <i>Reporters sans Frontières (RSF)</i><br><b>Data source:</b> <i>RSF, Lebanon / Palestine / Israel monitoring.</i><br><b>Geometries:</b> <i>geoBoundaries, simplified data.</i>`,
-        flaticonCredits: `<ul class="credits-list"><li>Icons from the RSF Data kit.</li></ul>`
+        flaticonCredits: `<ul class="credits-list"><li>Icons from the RSF Data kit / Christina Atik.</li></ul>`
       },
       cartography: { title: "RSF data maps", close: "Close" },
       playbackMessages: { example_title: "Timeline cue", example_body: "Add cues in reglages.js, then translate them here." }
